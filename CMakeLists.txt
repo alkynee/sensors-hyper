@@ -41,4 +41,27 @@ if (NOT TARGET glog::glog)
 endif ()
 
 # Find cv_bridge.
-if (NOT TARGET c
+if (NOT TARGET cv_bridge::cv_bridge)
+    find_package(cv_bridge REQUIRED)
+endif ()
+
+# Find yaml-cpp.
+if (NOT TARGET yaml-cpp)
+    find_package(yaml-cpp REQUIRED)
+endif ()
+
+if (HYPER_BUILD_WITH_CERES)
+    # Find Ceres target if not present.
+    if (NOT TARGET Ceres::ceres)
+        find_package(Ceres REQUIRED)
+    endif ()
+endif ()
+
+# Add includes and link libraries.
+target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+target_link_libraries(${PROJECT_NAME} PUBLIC Hyper::State PUBLIC cv_bridge::cv_bridge PUBLIC yaml-cpp)
+
+# Build tests.
+if (HYPER_BUILD_TESTS)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/apps/tests)
+endif (HYPER_BUILD_TESTS)
