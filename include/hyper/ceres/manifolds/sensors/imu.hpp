@@ -89,4 +89,14 @@ class Manifold<sensors::IMU> final : public Manifold<sensors::Sensor> {
   [[nodiscard]] auto accelerometerBiasSubmanifold() const -> Submanifold*;
 
   /// Sets the accelerometer bias submanifold.
-  /// \p
+  /// \param submanifold Input submanifold.
+  auto setAccelerometerBiasSubmanifold(std::unique_ptr<Submanifold>&& submanifold) -> void;
+
+  /// Sets the sensor's accelerometer bias constant or variable.
+  /// \param constant Constancy flag.
+  auto setAccelerometerBiasConstant(bool constant) -> void;
+};
+
+}  // namespace hyper::ceres::manifolds
+
+#endif
