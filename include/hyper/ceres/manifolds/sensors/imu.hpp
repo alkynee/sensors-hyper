@@ -45,4 +45,27 @@ class Manifold<sensors::IMU> final : public Manifold<sensors::Sensor> {
   [[nodiscard]] auto gyroscopeSensitivitySubmanifold() const -> Submanifold*;
 
   /// Sets the gyroscope sensitivity submanifold.
-  /// \param su
+  /// \param submanifold Input submanifold.
+  auto setGyroscopeSensitivitySubmanifold(std::unique_ptr<Submanifold>&& submanifold) -> void;
+
+  /// Sets the sensor's gyroscope sensitivity constant or variable.
+  /// \param constant Constancy flag.
+  auto setGyroscopeSensitivityConstant(bool constant) -> void;
+
+  /// Gyroscope bias submanifold accessor.
+  [[nodiscard]] auto gyroscopeBiasSubmanifold() const -> Submanifold*;
+
+  /// Sets the gyroscope bias submanifold.
+  /// \param submanifold Input submanifold.
+  auto setGyroscopeBiasSubmanifold(std::unique_ptr<Submanifold>&& submanifold) -> void;
+
+  /// Sets the sensor's gyroscope bias constant or variable.
+  /// \param constant Constancy flag.
+  auto setGyroscopeBiasConstant(bool constant) -> void;
+
+  /// Accelerometer intrinsics submanifold accessor.
+  [[nodiscard]] auto accelerometerIntrinsicsSubmanifold() const -> Submanifold*;
+
+  /// Sets the accelerometer intrinsics submanifold.
+  /// \param submanifold Input submanifold.
+  auto setAccelerometerInt
