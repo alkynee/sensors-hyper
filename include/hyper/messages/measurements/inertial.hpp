@@ -22,4 +22,19 @@ class InertialMeasurement final : public MeasurementBase<variables::Tangent<TMan
   /// Constructor from time, sensor and value.
   /// \param time Time.
   /// \param sensor Sensor.
-  ///
+  /// \param value Value.
+  InertialMeasurement(const Time& time, const Sensor* sensor, const Value& value) : Base{Type::INERTIAL_MEASUREMENT, time, value}, sensor_{sensor} {}
+
+  /// Sensor accessor.
+  /// \return Sensor.
+  [[nodiscard]] inline auto sensor() const -> const Sensor* final { return sensor_; }
+
+  /// Sets the associated sensor.
+  /// \param sensor Sensor to set.
+  inline auto setSensor(const Sensor* sensor) -> void { sensor_ = sensor; }
+
+ private:
+  const Sensor* sensor_;  ///< Sensor.
+};
+
+}  // namespace hyper::messages
