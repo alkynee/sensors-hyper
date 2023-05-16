@@ -28,4 +28,14 @@ class VisualMeasurement final : public MeasurementBase<TValue> {
 
   /// Sensor accessor.
   /// \return Sensor.
-  [[nodiscard]] inline auto sensor() const -> const
+  [[nodiscard]] inline auto sensor() const -> const Sensor* final { return sensor_; }
+
+  /// Sets the associated sensor.
+  /// \param sensor Sensor to set.
+  inline auto setSensor(const Sensor* sensor) -> void { sensor_ = sensor; }
+
+ private:
+  const Sensor* sensor_;  ///< Sensor.
+};
+
+}  // namespace hyper::messages
