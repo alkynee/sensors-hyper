@@ -44,4 +44,32 @@ class VisualTracks : public Message<TScalar> {
 
   /// Sets the associated sensor.
   /// \param camera Sensor to set.
-  inline auto setSensor(const Camera* camera) -> v
+  inline auto setSensor(const Camera* camera) -> void { camera_ = camera; }
+
+  /// Adds a new track.
+  /// \param camera Associated camera.
+  inline auto addTrack(const Camera* camera) -> Track& {
+    const auto [itr, inserted] = tracks_.try_emplace(camera);
+    DCHECK(inserted) << "Track already exists.";
+    return itr->second;
+  }
+
+  /// Track accessor.
+  /// \param camera Associated camera.
+  /// \return Track containing the associated image and tracked points.
+  [[nodiscard]] inline auto track(const Camera* camera) const -> const Track& {
+    const auto itr = tracks_.find(camera);
+    DCHECK(itr != tracks_.cend()) << "Track does not exist.";
+    return itr->second;
+  }
+
+  /// Track modifier.
+  /// \param camera Associated camera.
+  /// \return Track containing the associated image and tracked points.
+  inline auto track(const Camera* camera) -> Track& {
+    return const_cast<Track&>(std::as_const(*this).track(camera));
+  }
+
+  /// Tracks accessor.
+  /// \return Tracks.
+  inline auto tracks() const -> const Tracks& { re
