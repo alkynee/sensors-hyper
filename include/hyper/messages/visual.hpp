@@ -107,4 +107,36 @@ class StereoVisualTracks : public VisualTracks<TScalar> {
 
   /// Constructor from time and sensor.
   /// \param time Time.
-  /// \param left_camera C
+  /// \param left_camera Camera.
+  /// \param right_camera Other camera.
+  StereoVisualTracks(const Time& time, const Camera* left_camera,
+                     const Camera* right_camera)
+      : Base{Type::STEREO_VISUAL_TRACKS, time, left_camera},
+        right_camera_{right_camera} {}
+
+  /// Left sensor accessor.
+  /// \return Left sensor.
+  [[nodiscard]] inline auto leftCamera() const -> const Camera* {
+    return this->sensor();
+  }
+
+  /// Sets the left sensor.
+  /// \param left_camera Left sensor to set.
+  inline auto setLeftCamera(const Camera* left_camera) -> void {
+    this->setSensor(left_camera);
+  }
+
+  /// Right sensor accessor.
+  /// \return Right sensor.
+  [[nodiscard]] inline auto rightCamera() const -> const Camera* {
+    return right_camera_;
+  }
+
+  /// Sets the right sensor.
+  /// \param right_camera Right sensor to set.
+  inline auto setRightSensor(const Camera* right_camera) -> void {
+    right_camera_ = right_camera;
+  }
+
+ private:
+  const Camera* right
