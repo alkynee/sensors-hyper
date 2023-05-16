@@ -32,3 +32,27 @@ class RelativeMeasurement final : public MeasurementBase<TValue> {
   /// Other time modifier.
   /// \return Other time.
   auto otherTime() -> Time& { return static_cast<Time&>(std::as_const(*this).otherTime()); }
+
+  /// Sensor accessor.
+  /// \return Sensor.
+  [[nodiscard]] inline auto sensor() const -> const TSensor& final { *sensor_; }
+
+  /// Sets the associated sensor.
+  /// \param camera Sensor to set.
+  inline auto setSensor(const TSensor& sensor) -> void { sensor_ = &sensor; }
+
+  /// Other sensor accessor.
+  /// \return Other sensor.
+  [[nodiscard]] inline auto otherSensor() const -> const TSensor& { return *other_sensor_; }
+
+  /// Sets the associated other sensor.
+  /// \param camera Other sensor to set.
+  inline auto setOtherSensor(const TSensor& other_sensor) -> void { other_sensor_ = &other_sensor; }
+
+ private:
+  Time other_time_;              ///< Other time.
+  const TSensor* sensor_;        ///< Sensor.
+  const TSensor* other_sensor_;  ///< Other sensor.
+};
+
+}  // namespace hyper::messages
