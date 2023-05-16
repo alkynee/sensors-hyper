@@ -72,4 +72,39 @@ class VisualTracks : public Message<TScalar> {
 
   /// Tracks accessor.
   /// \return Tracks.
-  inline auto tracks() const -> const Tracks& { re
+  inline auto tracks() const -> const Tracks& { return tracks_; }
+
+  IDs ids;              ///< Track IDs.
+  Lengths lengths;      ///< Track lengths.
+  Positions positions;  ///< Track positions (optional).
+
+ protected:
+  /// Constructor from message type, time and sensor.
+  /// \param type Message type.
+  /// \param time Time.
+  /// \param camera Camera.
+  VisualTracks(const Type& type, const Time& time, const Camera* camera)
+      : Base{type, time},
+        ids{},
+        lengths{},
+        positions{},
+        camera_{camera},
+        tracks_{} {}
+
+ private:
+  Tracks tracks_;         ///< Tracks.
+  const Camera* camera_;  ///< Camera.
+};
+
+template <typename TScalar>
+class StereoVisualTracks : public VisualTracks<TScalar> {
+ public:
+  // Definitions.
+  using Base = VisualTracks<TScalar>;
+  using Type = typename Base::Type;
+  using Time = typename Base::Time;
+  using Camera = typename Base::Camera;
+
+  /// Constructor from time and sensor.
+  /// \param time Time.
+  /// \param left_camera C
