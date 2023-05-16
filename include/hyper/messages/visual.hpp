@@ -139,4 +139,7 @@ class StereoVisualTracks : public VisualTracks<TScalar> {
   }
 
  private:
-  const Camera* right
+  const Camera* right_camera_;  ///< Other camera.
+};
+
+}  // namespace hyper::messages
