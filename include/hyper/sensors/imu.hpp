@@ -34,4 +34,22 @@ class IMU final : public Sensor {
   using AccelerometerOffset = variables::Rn<Scalar, 9>;
   using AccelerometerBias = state::ContinuousState<variables::Rn<Scalar, 3>>;
 
-  using BiasInterpolat
+  using BiasInterpolator = state::TemporalInterpolator<Scalar>;
+  using DefaultBiasInterpolator = state::BasisInterpolator<Scalar, 4>;
+
+  /// Constructor from Jacobian type and bias interpolators.
+  /// \param jacobian_type Jacobian type.
+  /// \param gyroscope_bias_interpolator Interpolator.
+  /// \param accelerometer_bias_interpolator Interpolator.
+  explicit IMU(JacobianType jacobian_type = kDefaultJacobianType, std::unique_ptr<BiasInterpolator>&& gyroscope_bias_interpolator = std::make_unique<DefaultBiasInterpolator>(),
+               std::unique_ptr<BiasInterpolator>&& accelerometer_bias_interpolator = std::make_unique<DefaultBiasInterpolator>());
+
+  /// Constructor from YAML node.
+  /// \param node YAML node.
+  explicit IMU(const Node& node);
+
+  /// \brief Gyroscope noise density accessor.
+  /// \return Gyroscope noise density.
+  [[nodiscard]] auto gyroscopeNoiseDensity() const -> const GyroscopeNoiseDensity&;
+
+  /// \brief Gyro
