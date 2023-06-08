@@ -81,4 +81,28 @@ class IMU final : public Sensor {
   auto gyroscopeBias() -> GyroscopeBias&;
 
   /// \brief Accelerometer noise density accessor.
-  /// \retur
+  /// \return Accelerometer noise density.
+  [[nodiscard]] auto accelerometerNoiseDensity() const -> const AccelerometerNoiseDensity&;
+
+  /// \brief Accelerometer noise density modifier.
+  /// \return Accelerometer noise density.
+  auto accelerometerNoiseDensity() -> AccelerometerNoiseDensity&;
+
+  /// Accelerometer intrinsics accessor.
+  /// \return Accelerometer intrinsics.
+  [[nodiscard]] auto accelerometerIntrinsics() const -> const AccelerometerIntrinsics&;
+
+  /// Accelerometer intrinsics modifier.
+  /// \return Accelerometer intrinsics.
+  auto accelerometerIntrinsics() -> AccelerometerIntrinsics&;
+
+  /// Accelerometer offset (of individual axes) accessor.
+  /// \return Accelerometer offset.
+  [[nodiscard]] auto accelerometerOffset() const -> const AccelerometerOffset&;
+
+  /// Accelerometer offset (of individual axes) modifier.
+  /// \return Accelerometer offset.
+  auto accelerometerOffset() -> AccelerometerOffset&;
+
+  /// Accelerometer bias accessor.
+  ///
