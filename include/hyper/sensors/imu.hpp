@@ -52,4 +52,33 @@ class IMU final : public Sensor {
   /// \return Gyroscope noise density.
   [[nodiscard]] auto gyroscopeNoiseDensity() const -> const GyroscopeNoiseDensity&;
 
-  /// \brief Gyro
+  /// \brief Gyroscope noise density modifier.
+  /// \return Gyroscope noise density.
+  auto gyroscopeNoiseDensity() -> GyroscopeNoiseDensity&;
+
+  /// Gyroscope intrinsics accessor.
+  /// \return Gyroscope intrinsics.
+  [[nodiscard]] auto gyroscopeIntrinsics() const -> const GyroscopeIntrinsics&;
+
+  /// Gyroscope intrinsics modifier.
+  /// \return Gyroscope intrinsics.
+  auto gyroscopeIntrinsics() -> GyroscopeIntrinsics&;
+
+  /// Gyroscope sensitivity accessor.
+  /// \return Gyroscope sensitivity.
+  [[nodiscard]] auto gyroscopeSensitivity() const -> const GyroscopeSensitivity&;
+
+  /// Gyroscope sensitivity modifier.
+  /// \return Gyroscope sensitivity.
+  auto gyroscopeSensitivity() -> GyroscopeSensitivity&;
+
+  /// Gyroscope bias accessor.
+  /// \return Gyroscope bias.
+  [[nodiscard]] auto gyroscopeBias() const -> const GyroscopeBias&;
+
+  /// Gyroscope bias modifier.
+  /// \return Gyroscope bias.
+  auto gyroscopeBias() -> GyroscopeBias&;
+
+  /// \brief Accelerometer noise density accessor.
+  /// \retur
