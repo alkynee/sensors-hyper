@@ -133,4 +133,12 @@ class IMU final : public Sensor {
 
   /// Writes a sensor to a YAML emitter.
   /// \param emitter YAML emitter.
-  auto write(Emitter& emitter) const -> 
+  auto write(Emitter& emitter) const -> void final;
+
+  GyroscopeNoiseDensity gyroscope_noise_density_;          ///< Gyroscope noise density.
+  GyroscopeBias gyroscope_bias_;                           ///< Gyroscope bias.
+  AccelerometerNoiseDensity accelerometer_noise_density_;  ///< Accelerometer noise density.
+  AccelerometerBias accelerometer_bias_;                   ///< Accelerometer bias.
+};
+
+}  // namespace hyper::sensors
