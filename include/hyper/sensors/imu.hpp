@@ -105,4 +105,32 @@ class IMU final : public Sensor {
   auto accelerometerOffset() -> AccelerometerOffset&;
 
   /// Accelerometer bias accessor.
-  ///
+  /// \return Accelerometer bias.
+  [[nodiscard]] auto accelerometerBias() const -> const AccelerometerBias&;
+
+  /// Accelerometer bias modifier.
+  /// \return Accelerometer bias.
+  auto accelerometerBias() -> AccelerometerBias&;
+
+  /// Time-based parameter blocks accessor.
+  /// \return Time-based pointers to parameter blocks.
+  [[nodiscard]] auto partitions(const Time& time) const -> variables::Partitions<Scalar*> final;
+
+ private:
+  // Definitions.
+  using GyroscopeBiasParameterBlocks = std::vector<Scalar*>;
+  using AccelerometerBiasParameterBlocks = std::vector<Scalar*>;
+
+  /// Updates the IMU parameter block sizes.
+  auto updateIMUParameterBlockSizes() -> void;
+
+  /// Updates the parameter block sizes.
+  auto updateParameterBlockSizes() -> void final;
+
+  /// Reads a sensor from a YAML node.
+  /// \param node YAML node.
+  auto read(const Node& node) -> void final;
+
+  /// Writes a sensor to a YAML emitter.
+  /// \param emitter YAML emitter.
+  auto write(Emitter& emitter) const -> 
