@@ -50,4 +50,37 @@ class Sensor {
   /// Downcast this instance.
   /// \tparam TDerived_ Target type.
   /// \return Reference to cast instance.
-  template <typename
+  template <typename TDerived_>
+  inline auto as() const -> const TDerived_& {
+    return static_cast<const TDerived_&>(*this);
+  }
+
+  /// Downcast this instance.
+  /// \tparam TDerived_ Target type.
+  /// \return Reference to cast instance.
+  template <typename TDerived_>
+  inline auto as() -> TDerived_& {
+    return const_cast<TDerived_&>(std::as_const(*this).template as<TDerived_>());
+  }
+
+  /// Type accessor.
+  /// \return Sensor type.
+  [[nodiscard]] auto type() const -> Type;
+
+  /// Jacobian type accessor.
+  /// \return Jacobian type.
+  [[nodiscard]] auto jacobianType() const -> JacobianType;
+
+  /// Jacobian type setter.
+  /// \param jacobian_type Jacobian type.
+  auto setJacobianType(JacobianType jacobian_type) -> void;
+
+  /// Rate accessor.
+  /// \return Acquisition rate.
+  [[nodiscard]] auto rate() const -> const Rate&;
+
+  /// Checks whether sensor has variable rate.
+  /// \return True if rate is variable.
+  [[nodiscard]] auto rateIsVariable() const -> bool;
+
+  
