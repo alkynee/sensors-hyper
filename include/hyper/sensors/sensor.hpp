@@ -83,4 +83,30 @@ class Sensor {
   /// \return True if rate is variable.
   [[nodiscard]] auto rateIsVariable() const -> bool;
 
-  
+  /// Retrieves the parameter blocks of the sensor partition.
+  /// \return Parameter blocks.
+  [[nodiscard]] auto parameterBlocks() const -> const ParameterBlocks&;
+
+  /// Retrieves the parameter block sizes of the sensor partition.
+  /// \return Parameter block sizes.
+  [[nodiscard]] auto parameterBlockSizes() const -> const ParameterBlockSizes&;
+
+  /// Offset accessor.
+  /// \return Offset.
+  [[nodiscard]] auto offset() const -> const Offset&;
+
+  /// Offset modifier.
+  /// \return Offset.
+  [[nodiscard]] auto offset() -> Offset&;
+
+  /// Transformation accessor.
+  /// \return Transformation.
+  [[nodiscard]] auto transformation() const -> const Transformation&;
+
+  /// Transformation modifier.
+  /// \return Transformation.
+  [[nodiscard]] auto transformation() -> Transformation&;
+
+  /// Time-based parameter blocks accessor.
+  /// \return Time-based pointers to parameter blocks.
+  [[nodiscard]] virtual auto partitions(const Time& time) c
