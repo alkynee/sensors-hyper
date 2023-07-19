@@ -109,4 +109,31 @@ class Sensor {
 
   /// Time-based parameter blocks accessor.
   /// \return Time-based pointers to parameter blocks.
-  [[nodiscard]] virtual auto partitions(const Time& time) c
+  [[nodiscard]] virtual auto partitions(const Time& time) const -> variables::Partitions<Scalar*>;
+
+  /// Reads a sensor from a YAML file.
+  /// \param node YAML node.
+  /// \param sensor Sensor to read.
+  /// \return YAML node.
+  friend auto operator>>(const Node& node, Sensor& sensor) -> const Node&;
+
+  /// Emits a sensor to a YAML file.
+  /// \param emitter YAML emitter.
+  /// \param sensor Sensor to emit.
+  /// \return Modified YAML emitter.
+  friend auto operator<<(Emitter& emitter, const Sensor& sensor) -> Emitter&;
+
+ protected:
+  // Definitions.
+  using Size = std::size_t;
+  using Variable = variables::Variable<Scalar>;
+  using Variables = std::vector<std::unique_ptr<Variable>>;
+
+  /// Constructor from sensor type and number of variables.
+  /// \param type Sensor type.
+  /// \param jacobian_type Jacobian type.
+  /// \param num_variables Number of variables.
+  explicit Sensor(Type type, JacobianType jacobian_type, Size num_variables);
+
+  /// Updates the sensor parameter block sizes.
+  auto updateSensorParameterBlockS
