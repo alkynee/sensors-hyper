@@ -136,4 +136,30 @@ class Sensor {
   explicit Sensor(Type type, JacobianType jacobian_type, Size num_variables);
 
   /// Updates the sensor parameter block sizes.
-  auto updateSensorParameterBlockS
+  auto updateSensorParameterBlockSizes() -> void;
+
+  /// Updates the parameter block sizes.
+  virtual auto updateParameterBlockSizes() -> void;
+
+  /// Reads a sensor from a YAML node.
+  /// \param node YAML node.
+  virtual auto read(const Node& node) -> void;
+
+  /// Writes a sensor to a YAML emitter.
+  /// \param emitter YAML emitter.
+  virtual auto write(Emitter& emitter) const -> void;
+
+  /// Assembles the variables partition.
+  /// \return Variables partition
+  [[nodiscard]] auto assembleVariablesPartition() const -> variables::Partition<Scalar*>;
+
+  Type type_;                   ///< Type.
+  JacobianType jacobian_type_;  ///< Jacobian type.
+
+  Rate rate_;                                  ///< Rate.
+  Variables variables_;                        ///< Variables.
+  ParameterBlocks parameter_blocks_;           ///< Parameter blocks.
+  ParameterBlockSizes parameter_block_sizes_;  ///< Parameter block sizes.
+};
+
+}  // namespace hyper::sensors
