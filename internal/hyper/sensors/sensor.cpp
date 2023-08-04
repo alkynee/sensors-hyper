@@ -87,4 +87,23 @@ auto operator>>(const YAML::Node& node, Sensor& sensor) -> const YAML::Node& {
 
 auto operator<<(YAML::Emitter& emitter, const Sensor& sensor) -> YAML::Emitter& {
   emitter << YAML::BeginMap;
-  sensor.write(emit
+  sensor.write(emitter);
+  emitter << YAML::EndMap;
+  return emitter;
+}
+
+Sensor::Sensor(const Type type, JacobianType jacobian_type, Size num_variables)
+    : type_{type}, jacobian_type_{jacobian_type}, rate_{kDefaultRate}, variables_(num_variables), parameter_blocks_(num_variables), parameter_block_sizes_(num_variables) {
+  // Initialize variables.
+  DCHECK_LE(kNumVariables, variables_.size());
+  DCHECK_LE(kNumVariables, parameter_blocks_.size());
+  DCHECK_LE(kNumVariables, parameter_block_sizes_.size());
+  variables_[kOffsetIndex] = std::make_unique<Offset>();
+  variables_[kTransformationIndex] = std::make_unique<Transformation>();
+  parameter_blocks_[kOffsetIndex] = variables_[kOffsetIndex]->asVector().data();
+  parameter_blocks_[kTransformationIndex] = variables_[kTransformationIndex]->asVector().data();
+  updateSensorParameterBlockSizes();
+}
+
+auto Sensor::updateSensorParameterBlockSizes() -> void {
+  if (jacobian_type_ == JacobianTyp
