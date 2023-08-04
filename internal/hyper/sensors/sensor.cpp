@@ -106,4 +106,29 @@ Sensor::Sensor(const Type type, JacobianType jacobian_type, Size num_variables)
 }
 
 auto Sensor::updateSensorParameterBlockSizes() -> void {
-  if (jacobian_type_ == JacobianTyp
+  if (jacobian_type_ == JacobianType::TANGENT_TO_MANIFOLD) {
+    parameter_block_sizes_[kOffsetIndex] = Offset::kNumParameters;
+    parameter_block_sizes_[kTransformationIndex] = Transformation::kNumParameters;
+  } else {
+    parameter_block_sizes_[kOffsetIndex] = Tangent<Offset>::kNumParameters;
+    parameter_block_sizes_[kTransformationIndex] = Tangent<Transformation>::kNumParameters;
+  }
+}
+
+auto Sensor::updateParameterBlockSizes() -> void {
+  updateSensorParameterBlockSizes();
+}
+
+auto Sensor::read(const Node& node) -> void {
+  rate_ = yaml::ReadAs<Rate>(node, kRateName);
+  offset() = yaml::ReadVariable<Offset>(node, kOffsetName);
+  transformation() = yaml::ReadVariable<Transformation>(node, kTransformationName);
+}
+
+auto Sensor::write(Emitter& emitter) const -> void {
+  yaml::Write(emitter, kRateName, rate());
+  yaml::WriteVariable(emitter, kOffsetName, offset());
+  yaml::WriteVariable(emitter, kTransformationName, transformation());
+}
+
+auto Sensor::assembleVariablesPartition() const ->
