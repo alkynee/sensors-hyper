@@ -131,4 +131,14 @@ auto Sensor::write(Emitter& emitter) const -> void {
   yaml::WriteVariable(emitter, kTransformationName, transformation());
 }
 
-auto Sensor::assembleVariablesPartition() const ->
+auto Sensor::assembleVariablesPartition() const -> Partition<Scalar*> {
+  Partition<Scalar*> partition;
+  const auto num_parameter_blocks = parameter_blocks_.size();
+  partition.reserve(num_parameter_blocks);
+  for (auto i = std::size_t{0}; i < num_parameter_blocks; ++i) {
+    partition.emplace_back(parameter_blocks_[i], parameter_block_sizes_[i]);
+  }
+  return partition;
+}
+
+}  // namespace hyper::sensors
