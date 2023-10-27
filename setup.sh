@@ -24,4 +24,6 @@ mkdir gtest/build
 cmake -S gtest -B gtest/build
 sudo make install -C gtest/build -j$(nproc)
 
-mkdir glog/bu
+mkdir glog/build
+cmake -S glog -B glog/build
+sudo make install -C glog/build -j$(nproc)
