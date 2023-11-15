@@ -27,4 +27,7 @@ static auto CompareFiles(const Path& p1, const Path& p2) -> bool {
 
   f1.seekg(0, std::ifstream::beg);
   f2.seekg(0, std::ifstream::beg);
-  return std::equal(std::istreambuf_iterator<char>(f1.rdbuf()), std::istreambuf_iterator<char>(), std::istreambuf_iterator<char>(f2.rdbu
+  return std::equal(std::istreambuf_iterator<char>(f1.rdbuf()), std::istreambuf_iterator<char>(), std::istreambuf_iterator<char>(f2.rdbuf()));
+}
+
+}  // namespace hyper::sensors::tests::internal
