@@ -60,4 +60,20 @@ make
 
 ## Literature
 
-1. [Continuous-
+1. [Continuous-Time Stereo-Inertial Odometry, Hug et al. (2022)](https://ieeexplore.ieee.org/document/9772323)
+2. [HyperSLAM: A Generic and Modular Approach to Sensor Fusion and Simultaneous<br /> Localization And Mapping in Continuous-Time, Hug and Chli (2020)](https://ieeexplore.ieee.org/document/9320417)
+3. [Extending kalibr: Calibrating the Extrinsics of Multiple<br /> IMUs and of Individual Axes, Rehder et al. (2016)](https://ieeexplore.ieee.org/document/7487628)
+
+### Updates
+
+25.07.22 Initial release of *Hyper*Sensors.
+
+### Contact
+
+Admin - [David Hug](mailto:dhug@ethz.ch), Leonhardstrasse 21, 8092 Zürich, ETH Zürich, Switzerland  
+Maintainer - [Philipp Bänninger](mailto:baephili@ethz.ch), Leonhardstrasse 21, 8092 Zürich, ETH Zürich, Switzerland  
+Maintainer - [Ignacio Alzugaray](mailto:aignacio@ethz.ch), Leonhardstrasse 21, 8092 Zürich, ETH Zürich, Switzerland
+
+### License
+
+*Hyper*Sensors are distributed under the [BSD-3-Clause License](LICENSE).
